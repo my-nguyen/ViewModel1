@@ -3,6 +3,7 @@ package com.nguyen.viewmodel1
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.nguyen.viewmodel1.databinding.FragmentGameBinding
 
 /**
@@ -14,6 +15,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     private var currentWordCount = 0
     private var currentScrambledWord = "test"
 
+    private val viewModel: GameViewModel by viewModels()
 
     // Binding object instance with access to the views in the game_fragment.xml layout
     private lateinit var binding: FragmentGameBinding
