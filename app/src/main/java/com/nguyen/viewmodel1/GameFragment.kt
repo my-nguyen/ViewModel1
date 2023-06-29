@@ -21,6 +21,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d("GameFragment", "GameFragment created/re-created!")
+        Log.d("GameFragment", "Word: ${viewModel.currentScrambledWord} Score: ${viewModel.score} WordCount: ${viewModel.currentWordCount}")
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
