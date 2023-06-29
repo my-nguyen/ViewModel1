@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nguyen.viewmodel1.databinding.FragmentGameBinding
 
 /**
@@ -101,5 +102,22 @@ class GameFragment : Fragment(R.layout.fragment_game) {
      */
     private fun updateNextWordOnScreen() {
         binding.textViewUnscrambledWord.text = viewModel.currentScrambledWord
+    }
+
+    /*
+    * Creates and shows an AlertDialog with the final score.
+    */
+    private fun showFinalScoreDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.congratulations))
+            .setMessage(getString(R.string.you_scored, viewModel.score))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.exit)) { _, _ ->
+                exitGame()
+            }
+            .setPositiveButton(getString(R.string.play_again)) { _, _ ->
+                restartGame()
+            }
+            .show()
     }
 }
