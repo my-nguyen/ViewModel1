@@ -24,23 +24,24 @@ class GameViewModel : ViewModel() {
         Log.d("GameFragment", "GameViewModel destroyed!")
     }
 
-    private fun getNextWord2() {
-        // 1. Get a random word from the allWordsList
-        currentWord = allWordsList.random()
-        // 2. Create a scrambled word by scrambling the letters in the currentWord
-        val scrambled = currentWord.toCharArray()
-        scrambled.shuffle()
-        // 3. Handle the case where the scrambled word is the same as the unscrambled word
-        while (String(scrambled) == currentWord)
-            scrambled.shuffle()
-        // 4. Make sure you don't show the same word twice during the game
-        if (wordsList.contains(currentWord))
+    /*
+    * Returns true if the current word count is less than MAX_NO_OF_WORDS.
+    * Updates the next word.
+    */
+    fun nextWord(): Boolean {
+        return if (currentWordCount < MAX_NO_OF_WORDS) {
             getNextWord()
-        else {
-            _currentScrambledWord = String(scrambled)
-            ++currentWordCount
-            wordsList.add(currentWord)
-        }
+            true
+        } else
+            false
+    }
+
+    fun isUserWordCorrect(word: String): Boolean {
+        return if (word == currentWord) {
+            increaseScore()
+            true
+        } else
+            false
     }
 
     /*
@@ -63,15 +64,26 @@ class GameViewModel : ViewModel() {
         wordsList.add(currentWord)
     }
 
-    /*
-    * Returns true if the current word count is less than MAX_NO_OF_WORDS.
-    * Updates the next word.
-    */
-    private fun nextWord(): Boolean {
-        return if (currentWordCount < MAX_NO_OF_WORDS) {
+    private fun getNextWord2() {
+        // 1. Get a random word from the allWordsList
+        currentWord = allWordsList.random()
+        // 2. Create a scrambled word by scrambling the letters in the currentWord
+        val scrambled = currentWord.toCharArray()
+        scrambled.shuffle()
+        // 3. Handle the case where the scrambled word is the same as the unscrambled word
+        while (String(scrambled) == currentWord)
+            scrambled.shuffle()
+        // 4. Make sure you don't show the same word twice during the game
+        if (wordsList.contains(currentWord))
             getNextWord()
-            true
-        } else
-            false
+        else {
+            _currentScrambledWord = String(scrambled)
+            ++currentWordCount
+            wordsList.add(currentWord)
+        }
+    }
+
+    private fun increaseScore() {
+        _score += SCORE_INCREASE
     }
 }

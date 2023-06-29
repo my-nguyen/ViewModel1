@@ -50,6 +50,16 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     * Displays the next scrambled word.
     */
     private fun onSubmitWord() {
+        val playerWord = binding.textInputEditText.text.toString()
+        if (viewModel.isUserWordCorrect(playerWord)) {
+            setErrorTextField(false)
+            if (viewModel.nextWord())
+                updateNextWordOnScreen()
+            else
+                showFinalScoreDialog()
+        } else {
+            setErrorTextField(true)
+        }
     }
 
     /*
