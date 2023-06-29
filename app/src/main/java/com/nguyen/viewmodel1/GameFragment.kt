@@ -1,7 +1,10 @@
 package com.nguyen.viewmodel1
 
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.nguyen.viewmodel1.databinding.FragmentGameBinding
@@ -14,6 +17,11 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     // Binding object instance with access to the views in the game_fragment.xml layout
     private lateinit var binding: FragmentGameBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.d("GameFragment", "GameFragment created/re-created!")
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,6 +37,11 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         binding.score.text = getString(R.string.score, 0)
         binding.wordCount.text = getString(
                 R.string.word_count, 0, MAX_NO_OF_WORDS)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("GameFragment", "GameFragment destroyed!")
     }
 
     /*
