@@ -67,6 +67,11 @@ class GameFragment : Fragment(R.layout.fragment_game) {
      * Increases the word count.
      */
     private fun onSkipWord() {
+        if (viewModel.nextWord()) {
+            setErrorTextField(false)
+            updateNextWordOnScreen()
+        } else
+            setErrorTextField(true)
     }
 
     /*
